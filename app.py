@@ -13,6 +13,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 
+# Initialize the flask app and configure it's database
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-before-deployment")
 database_url = os.environ.get("DATABASE_URL", "sqlite:///service_requests.db")
@@ -95,7 +96,7 @@ class StatusForm(FlaskForm):
         ("Resolved", "Resolved")
     ], validators=[DataRequired()])
 
-
+# User routes and views
 def admin_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
