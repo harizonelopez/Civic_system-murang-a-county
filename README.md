@@ -27,7 +27,7 @@ Open `http://127.0.0.1:5000`.
 
 ## Project structure
 
-```text
+```
 public_service_request_system/
 ├── app.py
 ├── requirements.txt
