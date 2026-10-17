@@ -16,6 +16,7 @@ A small Flask application for reporting and tracking local public service issues
 
 Python 3.12 is recommended.
 
+## Cretae a virtual environment
 ```powershell
 py -m venv .venv
 .venv\Scripts\python app.py
