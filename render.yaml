@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: public-service-request-system
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    plan: free
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_EMAIL
+        value: admin@example.com
+      - key: ADMIN_PASSWORD
+        sync: false
