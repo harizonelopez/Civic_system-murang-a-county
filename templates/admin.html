@@ -1,38 +1,39 @@
 {% extends "base.html" %}
 {% block title %}Admin dashboard{% endblock %}
 {% block content %}
-<div class="mb-4">
-    <div class="eyebrow">
-        STAFF WORKSPACE
+    <div class="mb-4">
+        <div class="eyebrow">
+            STAFF WORKSPACE
+        </div>
+        <h1 class="h2 fw-bold mb-1">Service requests</h1>
+        <p class="text-secondary mb-0">Review community reports and keep each status up to date.</p>
     </div>
-    <h1 class="h2 fw-bold mb-1">Service requests</h1>
-    <p class="text-secondary mb-0">Review community reports and keep each status up to date.</p>
-</div>
-<div class="row g-3 mb-4">
-    <div class="col-6 col-lg-3">
-        <div class="stat-card">
-            <span>All requests</span><strong>{{ total }}</strong>
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <span>All requests</span><strong>{{ total }}</strong>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <span>Pending</span><strong>{{ pending }}</strong>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <span>In progress</span><strong>{{ in_progress }}</strong>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <span>Resolved</span><strong>{{ resolved }}</strong>
+            </div>
         </div>
     </div>
-    <div class="col-6 col-lg-3">
-        <div class="stat-card">
-            <span>Pending</span><strong>{{ pending }}</strong>
+    <div class="panel">
+        <div class="panel-heading">
+            <h2 class="h5 mb-0">All submissions</h2>
+            <span class="small text-secondary">{{ total }} total</span>
         </div>
     </div>
-    <div class="col-6 col-lg-3">
-        <div class="stat-card">
-            <span>In progress</span><strong>{{ in_progress }}</strong>
-        </div>
-    </div>
-    <div class="col-6 col-lg-3">
-        <div class="stat-card">
-            <span>Resolved</span><strong>{{ resolved }}</strong>
-        </div>
-    </div>
-</div>
-<div class="panel">
-    <div class="panel-heading">
-        <h2 class="h5 mb-0">All submissions</h2>
-        <span class="small text-secondary">{{ total }} total</span>
-    </div>
-</div>
+{% endblock %}
