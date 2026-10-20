@@ -22,16 +22,11 @@
               <a class="btn btn-sm btn-light rounded-pill px-3" href="{{ url_for('logout') }}">Log out</a>
 
             {% else %}
-              <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
-
-              <a class="btn btn-sm btn-outline-light rounded-pill px-3"
-                href="{{ url_for('admin_dashboard') }}">
-                Admin Login
-              </a>
+              <!-- <a class="nav-link" href="{{ url_for('login') }}">Log in</a> -->
 
               <a class="btn btn-sm btn-primary rounded-pill px-3"
-                href="{{ url_for('register') }}">Create account</a>
-              {% endif %}
+                href="{{ url_for('admin_dashboard') }}">Admin Login</a>
+            {% endif %}
           </div>
         </div>
       </div>
