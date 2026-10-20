@@ -149,6 +149,33 @@ def login():
     return render_template("login.html", form=form)
 
 
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if current_user.is_authenticated:
+        if current_user.is_admin:
+            return redirect(url_for("admin_dashboard"))
+        logout_user()
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        user = User.query.filter_by(email=email).first()
+
+        if (
+            user
+            and user.is_admin
+            and check_password_hash(user.password_hash, password)
+        ):
+            login_user(user)
+            flash("Welcome to the admin portal.", "success")
+            return redirect(url_for("admin_dashboard"))
+
+        flash("Invalid admin credentials.", "danger")
+
+    return render_template("admin_login.html")
+
+
 @app.route("/logout")
 @login_required
 def logout():
