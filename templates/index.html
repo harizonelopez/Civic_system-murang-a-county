@@ -5,8 +5,13 @@
   <div class="row align-items-center g-4">
     <div class="col-lg-7">
       <div class="eyebrow mb-3">YOUR COMMUNITY. YOUR VOICE.</div>
-      <h1 class="display-5 fw-bold mb-3">Report a problem.<br><span class="text-accent">Track the progress.</span></h1>
-      <p class="lead text-secondary mb-4">A simple way to report public service issues and see what happens next.</p>
+      <h1 class="display-5 fw-bold mb-3">
+        Report a problem.<br>
+        <span class="text-accent">Track the progress.</span>
+      </h1>
+      <p class="lead text-secondary mb-4">
+        A simple way to report public service issues and see what happens next.
+      </p>
       <div class="d-flex flex-wrap gap-2">
         {% if current_user.is_authenticated and not current_user.is_admin %}
           <a class="btn btn-primary btn-lg rounded-pill px-4" href="{{ url_for('new_request') }}">Submit a request</a>
@@ -19,18 +24,74 @@
         {% endif %}
       </div>
     </div>
-    <div class="col-lg-5"><div class="hero-card">
-      <div class="d-flex justify-content-between align-items-center mb-4"><span class="fw-semibold">How it works</span><span class="status-dot"></span></div>
-      <div class="step"><span>01</span><div><strong>Submit a request</strong><p>Describe the issue and where it is happening.</p></div></div>
-      <div class="step"><span>02</span><div><strong>Follow updates</strong><p>Check whether it is pending or being handled.</p></div></div>
-      <div class="step mb-0"><span>03</span><div><strong>See the outcome</strong><p>Know when the issue has been resolved.</p></div></div>
-    </div></div>
+
+    <div class="col-lg-5">
+      <div class="hero-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <span class="fw-semibold">How it works</span>
+          <span class="status-dot"></span>
+        </div>
+
+        <div class="step">
+          <span>01</span>
+          <div>
+            <strong>Submit a request</strong>
+            <p>Describe the issue and where it is happening.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span>02</span>
+          <div>
+            <strong>Follow updates</strong>
+            <p>Check whether it is pending or being handled.</p>
+          </div>
+        </div>
+
+        <div class="step mb-0">
+          <span>03</span>
+          <div>
+            <strong>See the outcome</strong>
+            <p>Know when the issue has been resolved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<section class="mb-4"><div class="d-flex align-items-end justify-content-between mb-3"><div><div class="eyebrow">THE PROCESS</div><h2 class="h3 fw-bold mb-0">What you can report</h2></div></div>
-<div class="row g-3">
-  <div class="col-md-4"><div class="feature-card h-100"><div class="feature-icon">↗</div><h3 class="h5">Roads & streetlights</h3><p class="text-secondary mb-0">Flag damaged roads, broken streetlights, and other local infrastructure issues.</p></div></div>
-  <div class="col-md-4"><div class="feature-card h-100"><div class="feature-icon">≈</div><h3 class="h5">Water supply</h3><p class="text-secondary mb-0">Report water interruptions, leaks, or related service problems.</p></div></div>
-  <div class="col-md-4"><div class="feature-card h-100"><div class="feature-icon">✓</div><h3 class="h5">Waste collection</h3><p class="text-secondary mb-0">Let the relevant team know about missed collections and waste concerns.</p></div></div>
-</div></section>
+
+<section class="mb-4">
+  <div class="d-flex align-items-end justify-content-between mb-3">
+    <div>
+      <div class="eyebrow">THE PROCESS</div>
+      <h2 class="h3 fw-bold mb-0">What you can report</h2>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="feature-icon">↗</div>
+        <h3 class="h5">Roads &amp; streetlights</h3>
+        <p class="text-secondary mb-0">Flag damaged roads, broken streetlights, and other local infrastructure issues.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="feature-icon">≈</div>
+        <h3 class="h5">Water supply</h3>
+        <p class="text-secondary mb-0">Report water interruptions, leaks, or related service problems.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card h-100">
+        <div class="feature-icon">✓</div>
+        <h3 class="h5">Waste collection</h3>
+        <p class="text-secondary mb-0">Let the relevant team know about missed collections and waste concerns.</p>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

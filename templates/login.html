@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Log in{% endblock %}
-{% block content %}<div class="auth-wrap"><div class="auth-card"><div class="eyebrow">WELCOME BACK</div><h1 class="h2 fw-bold mt-2">Log in to CivicDesk</h1><p class="text-secondary mb-4">Pick up where you left off.</p>
-    <form method="post">{{ form.hidden_tag() }}
-    <div class="mb-3">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control form-control-lg", placeholder="you@example.com") }}{% for e in form.email.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
-    <div class="mb-4">{{ form.password.label(class="form-label") }}{{ form.password(class="form-control form-control-lg", placeholder="Your password") }}{% for e in form.password.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}</div>
-    <button class="btn btn-primary btn-lg w-100 rounded-pill">Log in</button></form>
-    <p class="text-center text-secondary mt-4 mb-0">New here? <a href="{{ url_for('register') }}">Create an account</a></p></div></div>
+{% block content %}
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <div class="eyebrow">WELCOME BACK</div>
+            <h1 class="h2 fw-bold mt-2">Log in to CivicDesk</h1>
+            <p class="text-secondary mb-4">Pick up where you left off.</p>
+            <form method="post">{{ form.hidden_tag() }}
+                <div class="mb-3">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control form-control-lg", placeholder="you@example.com") }}{% for e in form.email.errors %}
+                    <div class="text-danger small">{{ e }}</div>{% endfor %}
+                </div>
+                <div class="mb-4">{{ form.password.label(class="form-label") }}{{ form.password(class="form-control form-control-lg", placeholder="Your password") }}{% for e in form.password.errors %}
+                    <div class="text-danger small">{{ e }}</div>{% endfor %}
+                </div>
+                <button class="btn btn-primary btn-lg w-100 rounded-pill">Log in</button>
+            </form>
+            <p class="text-center text-secondary mt-4 mb-0">New here? <a href="{{ url_for('register') }}">Create an account</a></p>
+        </div>
+    </div>
 {% endblock %}
