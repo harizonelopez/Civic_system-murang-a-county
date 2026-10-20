@@ -192,13 +192,29 @@ def new_request():
 @login_required
 @admin_required
 def admin_dashboard():
-    all_requests = ServiceRequest.query.order_by(ServiceRequest.created_at.desc()).all()
+    all_requests = ServiceRequest.query.order_by(
+        ServiceRequest.created_at.desc()
+    ).all()
+
     total = len(all_requests)
     pending = sum(item.status == "Pending" for item in all_requests)
     in_progress = sum(item.status == "In Progress" for item in all_requests)
     resolved = sum(item.status == "Resolved" for item in all_requests)
-    return render_template("admin.html", requests_list=all_requests, total=total,
-                           pending=pending, in_progress=in_progress, resolved=resolved)
+
+    status_forms = {
+        item.id: StatusForm(status=item.status)
+        for item in all_requests
+    }
+
+    return render_template(
+        "admin.html",
+        requests_list=all_requests,
+        total=total,
+        pending=pending,
+        in_progress=in_progress,
+        resolved=resolved,
+        status_forms=status_forms,
+    )
 
 
 @app.route("/admin/requests/<int:request_id>", methods=["POST"])
@@ -214,6 +230,31 @@ def update_request(request_id):
     else:
         flash("Please select a valid status.", "danger")
     return redirect(url_for("admin_dashboard"))
+
+
+
+@app.route("/admin/requests/<int:request_id>/edit", methods=["GET", "POST"])
+@login_required
+@admin_required
+def edit_request(request_id):
+    item = db.get_or_404(ServiceRequest, request_id)
+    form = RequestForm(obj=item)
+
+    if form.validate_on_submit():
+        item.title = form.title.data.strip()
+        item.category = form.category.data
+        item.location = form.location.data.strip()
+        item.description = form.description.data.strip()
+
+        db.session.commit()
+        flash(f"Request #{item.id} details were updated.", "success")
+        return redirect(url_for("admin_dashboard"))
+
+    return render_template(
+        "admin_edit_request.html",
+        form=form,
+        item=item,
+    )
 
 
 @app.errorhandler(403)
