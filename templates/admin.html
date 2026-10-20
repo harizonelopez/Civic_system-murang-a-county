@@ -1,39 +1,134 @@
 {% extends "base.html" %}
 {% block title %}Admin dashboard{% endblock %}
+
 {% block content %}
-    <div class="mb-4">
-        <div class="eyebrow">
-            STAFF WORKSPACE
-        </div>
-        <h1 class="h2 fw-bold mb-1">Service requests</h1>
-        <p class="text-secondary mb-0">Review community reports and keep each status up to date.</p>
-    </div>
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <span>All requests</span><strong>{{ total }}</strong>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <span>Pending</span><strong>{{ pending }}</strong>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <span>In progress</span><strong>{{ in_progress }}</strong>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="stat-card">
-                <span>Resolved</span><strong>{{ resolved }}</strong>
-            </div>
+<div class="mb-4">
+    <div class="eyebrow">STAFF WORKSPACE</div>
+    <h1 class="h2 fw-bold mb-1">Service requests</h1>
+    <p class="text-secondary mb-0">
+        Review community reports and keep each status up to date.
+    </p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="stat-card">
+            <span>All requests</span>
+            <strong>{{ total }}</strong>
         </div>
     </div>
-    <div class="panel">
-        <div class="panel-heading">
-            <h2 class="h5 mb-0">All submissions</h2>
-            <span class="small text-secondary">{{ total }} total</span>
+
+    <div class="col-6 col-lg-3">
+        <div class="stat-card">
+            <span>Pending</span>
+            <strong>{{ pending }}</strong>
         </div>
     </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="stat-card">
+            <span>In progress</span>
+            <strong>{{ in_progress }}</strong>
+        </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="stat-card">
+            <span>Resolved</span>
+            <strong>{{ resolved }}</strong>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h2 class="h5 mb-0">All submissions</h2>
+        <span class="small text-secondary">{{ total }} total</span>
+    </div>
+
+    <div class="p-3">
+        {% if requests_list %}
+            {% for item in requests_list %}
+                <div class="border rounded-3 p-3 mb-3">
+                    <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
+                        <div>
+                            <h3 class="h6 fw-bold mb-1">
+                                Request #{{ item.id }}
+                                {% if item.title is defined and item.title %}
+                                    — {{ item.title }}
+                                {% elif item.category is defined and item.category %}
+                                    — {{ item.category }}
+                                {% endif %}
+                            </h3>
+
+                            <small class="text-secondary">
+                                Submitted:
+                                {% if item.created_at %}
+                                    {{ item.created_at.strftime("%d %b %Y, %H:%M") }}
+                                {% else %}
+                                    Date unavailable
+                                {% endif %}
+                            </small>
+                        </div>
+
+                        <span class="badge
+                            {% if item.status == 'Resolved' %}
+                                text-bg-success
+                            {% elif item.status == 'In Progress' %}
+                                text-bg-primary
+                            {% else %}
+                                text-bg-warning
+                            {% endif %}">
+                            {{ item.status }}
+                        </span>
+                    </div>
+
+                    {% if item.description is defined and item.description %}
+                        <p class="mb-3">{{ item.description }}</p>
+                    {% endif %}
+
+                    <form method="POST"
+                          action="{{ url_for('update_request', request_id=item.id) }}"
+                          class="row g-2 align-items-end">
+
+                        {{ csrf_token() }}
+
+                        <div class="col-12 col-md-6">
+                            <label for="status-{{ item.id }}"
+                                   class="form-label">Update status</label>
+
+                            <select name="status"
+                                    id="status-{{ item.id }}"
+                                    class="form-select"
+                                    required>
+                                <option value="Pending"
+                                    {% if item.status == 'Pending' %}selected{% endif %}>
+                                    Pending
+                                </option>
+                                <option value="In Progress"
+                                    {% if item.status == 'In Progress' %}selected{% endif %}>
+                                    In Progress
+                                </option>
+                                <option value="Resolved"
+                                    {% if item.status == 'Resolved' %}selected{% endif %}>
+                                    Resolved
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-auto">
+                            <button type="submit" class="btn btn-primary">
+                                Save status
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-secondary mb-0">
+                No service requests have been submitted yet.
+            </p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
